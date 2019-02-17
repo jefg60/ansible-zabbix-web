@@ -7,7 +7,7 @@
   set_fact:
     zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
 
-- name: Wait for apt dependency lock
+- name: Wait for apt lock
   shell: while fuser /var/lib/dpkg/lock >/dev/null ; do sleep $[ ( $RANDOM % 10 )  + 1 ]s; done
   args:
     executable: /bin/bash
@@ -37,6 +37,11 @@
     - init
     - config
 
+- name: Wait for apt lock
+  shell: while fuser /var/lib/dpkg/lock >/dev/null ; do sleep $[ ( $RANDOM % 10 )  + 1 ]s; done
+  args:
+    executable: /bin/bash
+
 - name: "Debian | Install php5-{{ zabbix_server_database }}"
   apt:
     pkg: php5-{{ zabbix_server_database }}
@@ -53,6 +58,11 @@
   tags:
     - zabbix-web
     - init
+
+- name: Wait for apt lock
+  shell: while fuser /var/lib/dpkg/lock >/dev/null ; do sleep $[ ( $RANDOM % 10 )  + 1 ]s; done
+  args:
+    executable: /bin/bash
 
 - name: "Ubuntu | Install php7-{{ zabbix_server_database }}"
   apt:
@@ -71,6 +81,11 @@
   tags:
     - zabbix-server
     - init
+
+- name: Wait for apt lock
+  shell: while fuser /var/lib/dpkg/lock >/dev/null ; do sleep $[ ( $RANDOM % 10 )  + 1 ]s; done
+  args:
+    executable: /bin/bash
 
 - name: "Debian | Install zabbix-web"
   apt:
