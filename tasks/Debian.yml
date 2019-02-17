@@ -94,7 +94,7 @@
     update_cache: yes
     cache_valid_time: 0
   register: apt_install_zabbix_frontend_php
-  until: zabbix_frontend_php is succeeded
+  until: apt_install_zabbix_frontend_php is succeeded
   retries: 10
   delay: 3
   tags:
