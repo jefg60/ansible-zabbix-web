@@ -7,8 +7,7 @@
   set_fact:
     zabbix_short_version: "{{ zabbix_version | regex_replace('\\.', '') }}"
 
-- name: Wait for apt lock
-  import_tasks: aptlock.yml
+- import_tasks: aptlock.yml
 
 - name: "Debian | Install gpg key"
   apt_key:
@@ -35,8 +34,7 @@
     - init
     - config
 
-- name: Wait for apt lock
-  import_tasks: aptlock.yml
+- import_tasks: aptlock.yml
 
 - name: "Debian | Install php5-{{ zabbix_server_database }}"
   apt:
@@ -55,8 +53,7 @@
     - zabbix-web
     - init
 
-- name: Wait for apt lock
-  import_tasks: aptlock.yml
+- import_tasks: aptlock.yml
 
 - name: "Ubuntu | Install php7-{{ zabbix_server_database }}"
   apt:
@@ -76,8 +73,7 @@
     - zabbix-server
     - init
 
-- name: Wait for apt lock
-  import_tasks: aptlock.yml
+- import_tasks: aptlock.yml
 
 - name: "Debian | Install zabbix-web"
   apt:
