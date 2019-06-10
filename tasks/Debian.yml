@@ -36,26 +36,7 @@
 
 - import_tasks: aptlock.yml
 
-- name: "Debian | Install php5-{{ zabbix_server_database }}"
-  apt:
-    pkg: php5-{{ zabbix_server_database }}
-    state: present
-    update_cache: yes
-    cache_valid_time: 3600
-  when: >
-    ( ansible_distribution == 'Ubuntu' and (ansible_distribution_version is version_compare('16.04', '<')))
-    or ( ansible_distribution == 'Debian' and (ansible_distribution_version is version_compare('9.0', '<')) )
-  register: apt_install_php5
-  until: apt_install_php5 is succeeded
-  retries: 10
-  delay: 3
-  tags:
-    - zabbix-web
-    - init
-
-- import_tasks: aptlock.yml
-
-- name: "Ubuntu | Install php7-{{ zabbix_server_database }}"
+- name: "Ubuntu | Install php-{{ zabbix_server_database }}"
   apt:
     pkg: "{{ item }}"
     state: present
